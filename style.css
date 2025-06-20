@@ -1,0 +1,84 @@
+/* ~/.config/waybar/style.css (The Final Version) */
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 15px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent;
+    color: #c0caf5;
+}
+
+/* Base style for every module "pill" */
+#workspaces, #window, #mpris, #clock, #tray, #pulseaudio,
+#network, #disk, #cpu, #memory, #battery, #custom-bluetooth, #custom-power {
+    /* Fix: New margin for a tighter 4px gap between modules */
+    margin: 4px 2px;
+    padding: 2px 14px;
+    background: linear-gradient(to bottom, #25283b, #1a1b26);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 15px;
+    transition: all 0.4s ease;
+}
+
+/* Remove the old spacing system */
+/* #modules-right > * + * { margin-left: 8px; } etc. is no longer needed */
+
+/* --- The Centerpiece: Workspaces & Clock --- */
+#workspaces {
+    background: linear-gradient(to bottom, #2d324d, #21253a);
+    padding: 0 5px;
+}
+#workspaces button {
+    padding: 2px 6px;
+    background: transparent;
+    transition: all 0.4s ease;
+}
+#workspaces button.empty { color: #414868; }
+#workspaces button:not(.empty) { color: #a9b1d6; }
+#workspaces button.active {
+    background: linear-gradient(to bottom, #bb9af7, #a488de);
+    color: #1a1b26;
+    border-radius: 10px;
+    padding: 4px 8px;
+    margin: 0 2px;
+    box-shadow: 0 0 10px 2px rgba(187, 154, 247, 0.5);
+}
+@keyframes urgent-pulse {
+    0% { box-shadow: none; }
+    50% { box-shadow: 0 0 10px 2px #f7768e; background-color: #f7768e; color: #1a1b26; }
+    100% { box-shadow: none; }
+}
+#workspaces button.urgent {
+    border-radius: 10px;
+    animation: urgent-pulse 1.5s ease-in-out infinite;
+}
+
+/* --- Module-Specific Styles & Colors --- */
+#window { font-weight: bold; }
+#mpris { background: #ff9e64; color: #1a1b26; }
+#clock { color: #e0af68; }
+#memory { color: #bb9af7; }
+#cpu { color: #f7768e; }
+#disk { color: #73daca; }
+#pulseaudio { color: #9ece6a; }
+#pulseaudio.muted { background: #f7768e; color: #1a1b26; }
+#network { color: #7aa2f7; }
+#network.disconnected { background: #f7768e; color: #1a1b26; }
+
+/* Bluetooth Styling */
+#custom-bluetooth { color: #414868; }
+#custom-bluetooth.on { color: #7aa2f7; }
+
+/* Battery & Power */
+#battery { color: #9ece6a; }
+#battery.charging, #battery.plugged { background: #9ece6a; color: #1a1b26; }
+#battery.warning { background: #e0af68; color: #1a1b26; }
+#battery.critical:not(.charging) { background: #f7768e; color: #1a1b26; }
+#custom-power { background: #f7768e; color: #1a1b26; }
+#tray { background: #1f2335; }

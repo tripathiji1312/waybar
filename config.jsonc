@@ -1,0 +1,65 @@
+{
+  // ~/.config/waybar/config.jsonc (The Final Version)
+  "layer": "top",
+  "position": "top",
+  "height": 42,
+
+  "modules-left": ["mpris","hyprland/window"],
+  "modules-center": ["hyprland/workspaces", "clock"],
+  "modules-right": ["network", "custom/bluetooth", "pulseaudio", "disk", "cpu", "memory", "battery", "tray", "custom/power"],
+
+  // --- MODULE CONFIGURATIONS ---
+
+  "hyprland/workspaces": {
+      "format": "",
+      "persistent-workspaces": { "1": [], "2": [], "3": [], "4": [], "5": [] },
+      "on-click": "activate"
+  },
+  
+  // Fix: Show Wi-Fi name
+  "network": {
+      "format-wifi": " {essid}",
+      "format-ethernet": "",
+      "format-disconnected": "⚠",
+      "tooltip": false
+  },
+  
+  // Fix: New Bluetooth script to show device name
+  "custom/bluetooth": {
+      "format": "{}",
+      "return-type": "json",
+      "interval": 2,
+      // This script checks for connected devices and displays their name.
+      "exec": "DEVICE=$(bluetoothctl devices Connected | head -n1 | awk '{print $3}'); if bluetoothctl show | grep -q 'Powered: yes'; then if [ -n \"$DEVICE\" ]; then echo '{\"text\": \" '\"$DEVICE\"'\", \"class\": \"on\"}'; else echo '{\"text\": \"\", \"class\": \"on\"}'; fi; else echo '{\"text\": \"\", \"class\": \"off\"}'; fi",
+      "on-click": "blueman-manager"
+  },
+
+  // Fix: Using more common volume icons
+  "pulseaudio": {
+      "format": "{icon} {volume}%",
+      "format-muted": "",
+      "format-icons": {
+          "default": ["", ""] // Alternative if these fail: ["", "", ""]
+      },
+      "on-click": "pavucontrol"
+  },
+
+  "hyprland/window": { "max-length": 35 },
+  "mpris": {
+      "format": " {title}", "format-stopped": "",
+      "max-length": 25, "on-click": "playerctl play-pause"
+  },
+  "clock": { "format": " {:%I:%M %p}" },
+  "battery": {
+      "states": { "warning": 30, "critical": 15 },
+      "format": "{icon} {capacity}%",
+      "format-charging": " {capacity}%",
+      "format-plugged": " {capacity}%",
+      "format-icons": ["", "", "", "", ""]
+  },
+  "disk": { "format": " {percentage_used}%" },
+  "tray": { "icon-size": 18, "spacing": 12 },
+  "cpu": { "format": " {usage}%" },
+  "memory": { "format": " {}%" },
+  "custom/power": { "format": "", "on-click": "wlogout" }
+}
