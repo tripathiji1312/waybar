@@ -6,11 +6,11 @@
 
     // This is your current, corrected workspace config. It stays the same.
     "hyprland/workspaces": {
-        "format": "{icon}",
-        "on-click": "activate",
-        "format-icons": { "active": "", "default": "" },
-        "persistent_workspaces": { "1": [], "2": [], "3": [], "4": [], "5": [], "6": [], "7": [] }
-    },
+      "format": "{icon}",
+      "format-icons": { "active": "", "default": "" },
+      "persistent-workspaces": { "1": [], "2": [], "3": [], "4": [], "5": [] },
+      "on-click": "activate"
+  },
 
     // --- ADD THIS NEW BATTERY MODULE BLOCK ---
     "battery": {
@@ -32,14 +32,14 @@
         "on-click": "playerctl play-pause", "on-scroll-up": "playerctl next", "on-scroll-down": "playerctl previous", "tooltip": true
     },
     "backlight": {
-        "device": "intel_backlight", "format": "{icon} {percent}%", "format-icons": ["󰃟"],
+        "device": "amdgpu_bl1", "format": "{icon} {percent}%", "format-icons": ["󰃟"],
         "on-scroll-up": "brightnessctl set 5%+", "on-scroll-down": "brightnessctl set 5%-"
     },
     "disk": { "interval": 30, "format": " {percentage_used}%", "path": "/" },
     "memory": { "interval": 2, "format": "󰍛 {}%", "tooltip": true },
     "cpu": { "interval": 2, "format": " {usage}%", "tooltip": true },
     "network": {
-        "format-wifi": "{essid} ", "format-ethernet": "{ifname} ", "format-disconnected": "󰤮",
+        "format-wifi": "  {essid}", "format-ethernet": "{ifname} ", "format-disconnected": "󰤮",
         "on-click": "nm-connection-editor", "interval": 5
     },
     "bluetooth": {

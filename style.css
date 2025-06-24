@@ -21,6 +21,7 @@ window#waybar { background: transparent; color: @text; }
 #workspaces { background: @crust; padding: 0 5px; }
 #workspaces button { padding: 0 10px; background-color: transparent; transition: all 0.3s ease; color: @subtext0; }
 #workspaces button.empty { color: @surface1; }
+#workspaces button:not(.empty) { color: #a9b1d6; }
 #workspaces button.active { color: @mauve; background-color: @surface0; }
 #workspaces button.urgent { color: @red; }
 
