@@ -18,10 +18,10 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
+        "format": "{icon} {capacity}%",
+        "format-charging": "  {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{icon} {time}",
         "format-icons": ["", "", "", "", ""]
     },
     // -----------------------------------------
@@ -42,16 +42,24 @@
         "format-wifi": "  {essid}", "format-ethernet": "{ifname} ", "format-disconnected": "󰤮",
         "on-click": "nm-connection-editor", "interval": 5
     },
-    "bluetooth": {
-        "format": " {device_alias}", "format-disabled": "", "format-off": "", "format-on": "", "format-connected": " {device_alias}",
-        "on-click": "blueman-manager"
-    },
+        // --- UPDATED BLUETOOTH MODULE WITH FULL ICONS ---
+        "bluetooth": {
+            // This is the default format, which will be overridden by the specific states below.
+            "format": " {device_alias}", 
+            "format-on": "",                  // Icon when Bluetooth is on, but no devices connected
+            "format-connected": " {device_alias}", // Icon when a device is connected ( is a "linked" icon)
+            "format-disabled": "󰂲",           // Icon when the service is off (bluetooth.service is not running)
+            "format-off": "󰂲",                 // Icon for when the adapter is turned off (e.g., via rfkill)
+            "on-click": "blueman-manager",
+            "tooltip-format": "{controller_alias}: {status}"
+        },
+        // ------------------------------------------------
     "pulseaudio": {
-        "format": "{volume}% {icon}", "format-muted": "󰖁 {volume}%", "on-click": "pavucontrol",
+        "format": "{icon} {volume}%", "format-muted": "󰖁 {volume}%", "on-click": "pavucontrol",
         "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle", "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +2%",
         "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%", "format-icons": { "default": ["", "", ""] }
     },
     "clock": { "format": "{:%I:%M %p}", "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>" },
-    "custom/power": { "format": "", "on-click": "wlogout", "tooltip": false },
+    "custom/power": { "format": "", "on-click": "wlogout", "tooltip": true },
     "tray": { "icon-size": 18, "spacing": 10 }
 }
