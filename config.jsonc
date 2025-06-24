@@ -1,65 +1,57 @@
 {
-  // ~/.config/waybar/config.jsonc (The Final Version)
-  "layer": "top",
-  "position": "top",
-  "height": 42,
+    "layer": "top", "position": "top", "height": 44, "margin-top": 8, "margin-left": 8, "margin-right": 8, "spacing": 6,
+    "modules-left": ["custom/player", "hyprland/workspaces"], 
+    // ADD "battery" to this list
+    "modules-right": ["tray","disk", "memory", "backlight", "pulseaudio", "network", "bluetooth", "clock","battery", "custom/power"],
 
-  "modules-left": ["mpris","hyprland/window"],
-  "modules-center": ["hyprland/workspaces", "clock"],
-  "modules-right": ["network", "custom/bluetooth", "pulseaudio", "disk", "cpu", "memory", "battery", "tray", "custom/power"],
+    // This is your current, corrected workspace config. It stays the same.
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "on-click": "activate",
+        "format-icons": { "active": "", "default": "" },
+        "persistent_workspaces": { "1": [], "2": [], "3": [], "4": [], "5": [], "6": [], "7": [] }
+    },
 
-  // --- MODULE CONFIGURATIONS ---
+    // --- ADD THIS NEW BATTERY MODULE BLOCK ---
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    // -----------------------------------------
 
-  "hyprland/workspaces": {
-      "format": "",
-      "persistent-workspaces": { "1": [], "2": [], "3": [], "4": [], "5": [] },
-      "on-click": "activate"
-  },
-  
-  // Fix: Show Wi-Fi name
-  "network": {
-      "format-wifi": " {essid}",
-      "format-ethernet": "",
-      "format-disconnected": "⚠",
-      "tooltip": false
-  },
-  
-  // Fix: New Bluetooth script to show device name
-  "custom/bluetooth": {
-      "format": "{}",
-      "return-type": "json",
-      "interval": 2,
-      // This script checks for connected devices and displays their name.
-      "exec": "DEVICE=$(bluetoothctl devices Connected | head -n1 | awk '{print $3}'); if bluetoothctl show | grep -q 'Powered: yes'; then if [ -n \"$DEVICE\" ]; then echo '{\"text\": \" '\"$DEVICE\"'\", \"class\": \"on\"}'; else echo '{\"text\": \"\", \"class\": \"on\"}'; fi; else echo '{\"text\": \"\", \"class\": \"off\"}'; fi",
-      "on-click": "blueman-manager"
-  },
-
-  // Fix: Using more common volume icons
-  "pulseaudio": {
-      "format": "{icon} {volume}%",
-      "format-muted": "",
-      "format-icons": {
-          "default": ["", ""] // Alternative if these fail: ["", "", ""]
-      },
-      "on-click": "pavucontrol"
-  },
-
-  "hyprland/window": { "max-length": 35 },
-  "mpris": {
-      "format": " {title}", "format-stopped": "",
-      "max-length": 25, "on-click": "playerctl play-pause"
-  },
-  "clock": { "format": " {:%I:%M %p}" },
-  "battery": {
-      "states": { "warning": 30, "critical": 15 },
-      "format": "{icon} {capacity}%",
-      "format-charging": " {capacity}%",
-      "format-plugged": " {capacity}%",
-      "format-icons": ["", "", "", "", ""]
-  },
-  "disk": { "format": " {percentage_used}%" },
-  "tray": { "icon-size": 18, "spacing": 12 },
-  "cpu": { "format": " {usage}%" },
-  "memory": { "format": " {}%" },
-  "custom/power": { "format": "", "on-click": "wlogout" }
+    "custom/player": {
+        "format": "{icon} {text}", "format-icons": { "Playing": "▶", "Paused": "⏸", "Stopped": "⏹", "inactive": "♪" },
+        "return-type": "json", "max-length": 35, "interval": 2, "exec": "~/.config/waybar/scripts/player.sh",
+        "on-click": "playerctl play-pause", "on-scroll-up": "playerctl next", "on-scroll-down": "playerctl previous", "tooltip": true
+    },
+    "backlight": {
+        "device": "intel_backlight", "format": "{icon} {percent}%", "format-icons": ["󰃟"],
+        "on-scroll-up": "brightnessctl set 5%+", "on-scroll-down": "brightnessctl set 5%-"
+    },
+    "disk": { "interval": 30, "format": " {percentage_used}%", "path": "/" },
+    "memory": { "interval": 2, "format": "󰍛 {}%", "tooltip": true },
+    "cpu": { "interval": 2, "format": " {usage}%", "tooltip": true },
+    "network": {
+        "format-wifi": "{essid} ", "format-ethernet": "{ifname} ", "format-disconnected": "󰤮",
+        "on-click": "nm-connection-editor", "interval": 5
+    },
+    "bluetooth": {
+        "format": " {device_alias}", "format-disabled": "", "format-off": "", "format-on": "", "format-connected": " {device_alias}",
+        "on-click": "blueman-manager"
+    },
+    "pulseaudio": {
+        "format": "{volume}% {icon}", "format-muted": "󰖁 {volume}%", "on-click": "pavucontrol",
+        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle", "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +2%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%", "format-icons": { "default": ["", "", ""] }
+    },
+    "clock": { "format": "{:%I:%M %p}", "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>" },
+    "custom/power": { "format": "", "on-click": "wlogout", "tooltip": false },
+    "tray": { "icon-size": 18, "spacing": 10 }
 }
