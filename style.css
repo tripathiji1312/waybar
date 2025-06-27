@@ -13,10 +13,26 @@
 window#waybar { background: transparent; color: @text; }
 
 /* Base Module Styles - ADD #battery TO THIS LIST */
-#workspaces, #clock, #pulseaudio, #network, #bluetooth, #cpu, #memory, #disk, #tray, #custom-player, #backlight, #custom-power, #battery {
-    background: @crust; border: 1px solid @surface1; padding: 4px 15px; margin: 2px 0;
+#workspaces, #clock, #sound, #network, #bluetooth, #hardware, #privacy ,#cpu, #custom-player, #custom-power, #battery {
+    background: @crust; border: 1px solid @surface1; padding: 4px 12px; margin: 2px 0;
 }
-
+#tray {
+    background: transparent; padding: 4px 15px; margin: 2px 0;
+}
+#memory, #disk {
+    background: @crust; border: 0px solid @surface1; padding: 4px 10px; margin: 2px 0;
+}
+#disk {
+    border-right: 1px solid @surface1;
+    border-radius: 0px
+}
+#pulseaudio, #backlight {
+    background: @crust; border: 0px solid @surface1; padding: 4px 10px; margin: 2px 0;
+}
+#pulseaudio {
+    border-right: 1px solid @surface1;
+    border-radius: 0px
+}
 /* Workspace Styling */
 #workspaces { background: @crust; padding: 0 5px; }
 #workspaces button { padding: 0 10px; background-color: transparent; transition: all 0.3s ease; color: @subtext0; }

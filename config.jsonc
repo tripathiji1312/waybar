@@ -2,7 +2,7 @@
     "layer": "top", "position": "top", "height": 44, "margin-top": 8, "margin-left": 8, "margin-right": 8, "spacing": 6,
     "modules-left": ["custom/player", "hyprland/workspaces"], 
     // ADD "battery" to this list
-    "modules-right": ["tray","disk", "memory", "backlight", "pulseaudio", "network", "bluetooth", "clock","battery", "custom/power"],
+    "modules-right": ["tray","privacy","group/hardware", "group/sound", "network", "bluetooth", "clock","battery", "custom/power"],
 
     // This is your current, corrected workspace config. It stays the same.
     "hyprland/workspaces": {
@@ -24,6 +24,7 @@
         "format-alt": "{icon} {time}",
         "format-icons": ["", "", "", "", ""]
     },
+    
     // -----------------------------------------
 
     "custom/player": {
@@ -61,5 +62,59 @@
     },
     "clock": { "format": "{:%I:%M %p}", "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>" },
     "custom/power": { "format": "", "on-click": "wlogout", "tooltip": true },
-    "tray": { "icon-size": 18, "spacing": 10 }
+    "tray": { "icon-size": 18, "spacing": 10 },
+    "privacy": {
+        "icon-spacing": 4,
+        "icon-size": 18,
+        "transition-duration": 250,
+        "modules": [
+            {
+                "type": "screenshare",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            },
+            {
+                "type": "audio-out",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            },
+            {
+                "type": "audio-in",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            }
+        ],
+        "ignore-monitor": true,
+        "ignore": [
+            {
+                "type": "audio-in",
+                "name": "cava"
+            },
+            {
+                "type": "screenshare",
+                "name": "obs"
+            }
+	]
+    },
+    "group/hardware": {
+		"orientation": "horizontal",
+		"modules": [
+			"disk",
+			"memory"
+		]   
+	},
+    "group/sound": {
+		"orientation": "horizontal",
+		"modules": [
+			"pulseaudio", 
+            "backlight"
+		]
+	},
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+}
 }
