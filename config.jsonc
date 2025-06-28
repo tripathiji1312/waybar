@@ -32,9 +32,20 @@
         "return-type": "json", "max-length": 35, "interval": 2, "exec": "~/.config/waybar/scripts/player.sh",
         "on-click": "playerctl play-pause", "on-scroll-up": "playerctl next", "on-scroll-down": "playerctl previous", "tooltip": true
     },
+    "pulseaudio/slider": {
+        "min": 0,
+        "max": 100,
+        "orientation": "horizontal"
+    },
     "backlight": {
         "device": "amdgpu_bl1", "format": "{icon} {percent}%", "format-icons": ["󰃟"],
         "on-scroll-up": "brightnessctl set 5%+", "on-scroll-down": "brightnessctl set 5%-"
+    },
+    "backlight/slider": {
+        "min": 0,
+        "max": 100,
+        "orientation": "horizontal",
+        "device": "amdgpu_bl1"
     },
     "disk": { "interval": 30, "format": " {percentage_used}%", "path": "/" },
     "memory": { "interval": 2, "format": "󰍛 {}%", "tooltip": true },
@@ -107,7 +118,9 @@
 		"orientation": "horizontal",
 		"modules": [
 			"pulseaudio", 
-            "backlight"
+            "pulseaudio/slider",
+            "backlight",
+            "backlight/slider"
 		]
 	},
     "idle_inhibitor": {
