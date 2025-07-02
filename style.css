@@ -29,9 +29,51 @@ window#waybar { background: transparent; color: @text; }
 #pulseaudio, #backlight {
     background: @crust; border: 0px solid @surface1; padding: 4px 10px; margin: 2px 0;
 }
-#pulseaudio {
+/* #pulseaudio {
     border-right: 1px solid @surface1;
     border-radius: 0px
+} */
+#backlight-slider slider {
+    min-height: 0px;
+    min-width: 0px;
+    opacity: 0;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+}
+#backlight-slider trough {
+    min-height: 10px;
+    min-width: 80px;
+    border-radius: 5px;
+    background-color: black;
+}
+#backlight-slider highlight {
+    min-width: 10px;
+    border-radius: 5px;
+    background-color: red;
+}
+#pulseaudio-slider {
+    border-right: 1px solid @surface1;
+    border-radius: 0px
+}
+#pulseaudio-slider slider {
+    min-height: 0px;
+    min-width: 0px;
+    opacity: 0;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+}
+#pulseaudio-slider trough {
+    min-height: 10px;
+    min-width: 80px;
+    border-radius: 5px;
+    background-color: black;
+}
+#pulseaudio-slider highlight {
+    min-width: 10px;
+    border-radius: 5px;
+    background-color: green;
 }
 /* Workspace Styling */
 #workspaces { background: @crust; padding: 0 5px; }
