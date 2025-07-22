@@ -1,6 +1,6 @@
 {
-    "layer": "top", "position": "top", "height": 44, "margin-top": 8, "margin-left": 8, "margin-right": 8, "spacing": 6,
-    "modules-left": ["custom/player", "hyprland/workspaces"], 
+    "layer": "top", "position": "top", "height": 30, "margin-top": 2, "margin-left": 2, "margin-right": 2, "spacing": 4, "margin-bottom":0,
+    "modules-left": ["custom/media", "hyprland/workspaces"], 
     // ADD "battery" to this list
     "modules-right": ["tray","privacy","group/hardware", "group/sound", "network", "bluetooth", "clock","battery", "custom/power"],
 
@@ -114,6 +114,18 @@
 			"memory"
 		]   
 	},
+    "custom/media": {
+        "format": "{icon} {text}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "",
+            "default": "🎜"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    },
     "group/sound": {
 		"orientation": "horizontal",
 		"modules": [
