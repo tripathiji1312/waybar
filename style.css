@@ -21,7 +21,7 @@ window#waybar {
 }
 
 /* Base Module Styles */
-#workspaces, #clock, #sound, #network, #bluetooth, #hardware, #privacy, #cpu, #custom-media, #custom-power, #battery {
+#workspaces, #clock, #sound, #network, #bluetooth, #hardware, #privacy, #cpu, #custom-media, #custom-power, #battery, #tray {
     background: transparent; 
     border: 0px solid @surface1; 
     padding: 4px 10px; 
@@ -29,7 +29,7 @@ window#waybar {
 }
 
 #tray {
-    background: transparent; 
+    background: grey; 
     padding: 4px 15px; 
     margin: 2px 0;
 }
