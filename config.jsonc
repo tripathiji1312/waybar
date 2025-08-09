@@ -1,5 +1,5 @@
 {
-    "layer": "top", "position": "top", "height": 30, "margin-top": 2, "margin-left": 2, "margin-right": 2, "spacing": 4, "margin-bottom":0,
+    "layer": "top", "position": "top", "height": 35, "margin-top": 2, "margin-left": 2, "margin-right": 2, "spacing": 4, "margin-bottom":0,
     "modules-left": ["custom/media", "hyprland/workspaces"], 
     // ADD "battery" to this list
     "modules-right": ["tray","privacy","group/hardware", "group/sound", "network", "bluetooth", "clock","battery", "custom/power"],
@@ -116,6 +116,9 @@
 	},
     "custom/media": {
         "format": "{icon} {text}",
+        // ADD THIS LINE: This is the format to use when no music is playing.
+        "format-inactive": "󰝚",
+
         "return-type": "json",
         "max-length": 40,
         "format-icons": {
@@ -123,16 +126,15 @@
             "default": "🎜"
         },
         "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null"
     },
     "group/sound": {
 		"orientation": "horizontal",
 		"modules": [
 			"pulseaudio", 
-            "pulseaudio/slider",
-            "backlight",
-            "backlight/slider"
+            // "pulseaudio/slider",
+            "backlight"
+            // "backlight/slider"
 		]
 	},
     "idle_inhibitor": {
