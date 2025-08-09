@@ -67,32 +67,43 @@ window#waybar {
 /* ===  IMPROVED WORKSPACE DESIGN (Original Size) === */
 /* ================================================= */
 
+/* ================================================= */
+/* ===  IMPROVED WORKSPACE DESIGN (Original Size) === */
+/* ================================================= */
+
+/* In your style.css */
+
+/* ================================================= */
+/* ===         SAFE MODE WORKSPACE STYLE         === */
+/* ================================================= */
+
 #hyprland-workspaces {
-    background-color: alpha(@background, 0.7);
-    border: 1px solid alpha(@color8, 0.2);
-    border-radius: 12px;
-    padding: 2px 5px;
+    background-color: #000000; /* Solid Black Background */
+    padding: 2px;
     margin: 4px 0;
+    border-radius: 8px;
+    border: 2px solid #5e81ac; /* A solid, visible border */
 }
 
 #hyprland-workspaces button {
-    padding: 0;
-    margin: 3px 3px;
-    border-radius: 50%; /* Perfect circle */
-    background-color: @color0;
-    color: @color7;
-    /* FIX: Reverted to original button size */
-    min-width: 24px;
+    /* Style for ALL buttons */
+    background-color: transparent; /* No background color on the button itself */
+    color: #ffffff;               /* White text */
+    padding: 0px 8px;
+    margin: 2px 3px;
+    border-radius: 4px;
+    font-size: 14px;
     min-height: 24px;
-    font-size: 13px;
-    transition: all 0.3s ease;
-    border: 2px solid @color8;
+}
+
+#hyprland-workspaces button.active {
+    /* Style for the FOCUSED workspace */
+    background-color: #88c0d0; /* A bright, solid background */
+    color: #2e3440;           /* Dark text */
 }
 
 #hyprland-workspaces button:hover {
-    background-color: @color2;
-    border-color: @color6;
-    color: @color15;
+    background-color: rgba(136, 192, 208, 0.3);
 }
 
 /* A non-empty workspace (but not focused) */
