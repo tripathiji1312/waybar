@@ -1,53 +1,113 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 34,
+    // FIX: Reverted to original height and spacing
+    "height": 36,
     "spacing": 8,
-    "margin-top": 6,
+    "margin-top": 3,
     "margin-left": 6,
     "margin-right": 6,
 
     "modules-left": ["custom/launcher", "hyprland/workspaces", "custom/media"],
     "modules-center": ["clock"],
-    "modules-right": ["cpu", "memory", "disk", "backlight", "pulseaudio", "network", "bluetooth", "battery", "tray", "custom/power"],
+    "modules-right": ["cpu", "memory", "disk", "backlight", "pulseaudio", "network", "bluetooth", "tray", "battery", "custom/power"],
 
     "custom/launcher": {
         "format": "",
-        "on-click": "wofi --show drun"
+        "on-click": "wofi --show drun",
+        "tooltip": false
     },
+
     "hyprland/workspaces": {
         "format": "{icon}",
-        "format-icons": { "active": "", "default": "" }
+        "persistent_workspaces": {
+            "*": 5
+        },
+        "format-icons": {
+            "1": "1", "2": "2", "3": "3", "4": "4", "5": "5",
+            "active": "",
+            "urgent": "",
+            "default": ""
+        },
+        "on-click": "hyprland dispatch workspace {id}"
     },
+
     "custom/media": {
-        "format": "{} ",
+        "format": "{}",
         "return-type": "json",
-        "max-length": 25,
-        "exec": "while true; do $HOME/.config/waybar/mediaplayer.py 2> /dev/null; sleep 1; done",
-        "on-click": "playerctl play-pause"
+        "max-length": 35,
+        "exec": "$HOME/.config/waybar/mediaplayer.py",
+        "on-click": "playerctl play-pause",
+        "escape": true
     },
+
     "clock": {
         "format": "{:%I:%M %p}",
         "tooltip-format": "<big>{:%A, %B %d}</big>"
     },
-    "cpu": { "format": " {}%", "interval": 2 },
-    "memory": { "format": "󰍛 {}%", "interval": 2 },
-    "disk": { "format": " {}%", "interval": 30 },
+
+    "cpu": {
+        "format": " {}%",
+        "interval": 2,
+        "tooltip-format": "CPU Usage: {}%"
+    },
+    "memory": {
+        "format": "󰍛 {}%",
+        "interval": 2,
+        "tooltip-format": "Memory Usage: {}%"
+    },
+    "disk": {
+        "format": " {}%",
+        "interval": 30
+    },
+
     "backlight": {
         "format": "{icon} {percent}%",
         "format-icons": ["󰃟"],
         "on-scroll-up": "brightnessctl set 5%+",
         "on-scroll-down": "brightnessctl set 5%-"
     },
+
     "pulseaudio": {
         "format": "{icon} {volume}%",
-        "format-muted": "󰖁",
+        "format-muted": "󰖁 Muted",
         "format-icons": { "default": ["", "", ""] },
-        "on-click": "pavucontrol"
+        "on-click": "pavucontrol",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%"
     },
-    "network": { "format-wifi": "", "format-ethernet": "", "format-disconnected": "󰤮", "tooltip-format": "{essid}" },
-    "bluetooth": { "format": "", "format-connected": " {device_alias}", "format-disabled": "󰂲", "tooltip-format": "{device_alias}" },
-    "battery": { "format": "{icon} {capacity}%", "format-charging": "", "format-icons": ["", "", "", "", ""] },
-    "tray": { "icon-size": 16, "spacing": 10 },
-    "custom/power": { "format": "", "on-click": "wlogout" }
+
+    "network": {
+        "format-wifi": " {essid}",
+        "format-ethernet": "",
+        "format-disconnected": "󰤮 Disconnected",
+        "tooltip-format-wifi": "{ipaddr} | {signalStrength}%",
+        "on-click": "nm-connection-editor"
+    },
+
+    "bluetooth": {
+        "format": "",
+        "format-connected": " {device_alias}",
+        "format-disabled": "󰂲",
+        "tooltip-format": "Bluetooth: {device_alias}",
+        "on-click": "blueman-manager"
+    },
+
+    "battery": {
+        "states": { "warning": 30, "critical": 15 },
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 10
+    },
+
+    "custom/power": {
+        "format": "",
+        "on-click": "wlogout",
+        "tooltip": false
+    }
 }

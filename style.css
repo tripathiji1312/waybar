@@ -1,19 +1,9 @@
-/* Nord Palette */
-@define-color nord0 #2e3440; @define-color nord1 #3b4252; @define-color nord2 #434c5e; @define-color nord3 #4c566a;
-@define-color nord4 #d8dee9; @define-color nord5 #e5e9f0; @define-color nord6 #eceff4;
-@define-color nord7 #8fbcbb; @define-color nord8 #88c0d0; @define-color nord9 #81a1c1; @define-color nord10 #5e81ac;
-@define-color nord11 #bf616a; @define-color nord12 #d08770; @define-color nord13 #ebcb8b; @define-color nord14 #a3be8c; @define-color nord15 #b48ead;
-
-/* Aliases for easier reference */
-@define-color text @nord6; @define-color subtext0 @nord4; @define-color overlay1 @nord3;
-@define-color surface1 @nord2; @define-color surface0 @nord1; @define-color crust @nord0; @define-color mantle @nord0;
-@define-color red @nord11; @define-color yellow @nord13; @define-color green @nord14; @define-color blue @nord10;
-@define-color cyan @nord8; @define-color purple @nord15; @define-color orange @nord12; @define-color teal @nord7;
-
+/* Import Pywal colors */
 @import url("/home/tripathiji/.cache/wal/colors-waybar.css");
 
 * {
     border: none;
+    /* FIX: Reverted to original size */
     border-radius: 12px;
     font-family: "JetBrainsMono Nerd Font", FontAwesome, sans-serif;
     font-weight: bold;
@@ -26,96 +16,146 @@ window#waybar {
 }
 
 /* --- General Module Styling --- */
-#custom-launcher,
-#hyprland-workspaces,
-#custom-media,
-#clock,
-#cpu,
-#memory,
-#disk,
-#backlight,
-#pulseaudio,
-#network,
-#bluetooth,
-#battery,
-#tray,
-#custom-power {
+#custom-launcher, #clock, #battery, #tray, #custom-power,
+#cpu, #memory, #disk, #backlight, #pulseaudio, #network, #bluetooth {
     background-color: alpha(@background, 0.7);
     color: @foreground;
-    padding: 4px 12px;
     margin: 4px 0;
     border: 1px solid alpha(@color8, 0.2);
-}
-
-/* --- Specific Module Styling --- */
-#hyprland-workspaces {
-    background-color: alpha(@background, 0.8);
-    padding: 2px 8px;
-}
-
-#hyprland-workspaces button {
-    color: @color3;
-    padding: 2px 6px;
-    border-radius: 8px;
+    /* FEATURE: Added transition for hover effects */
     transition: all 0.3s ease;
 }
 
-#hyprland-workspaces button.active {
-    color: @color4;
-    background-color: alpha(@color8, 0.5);
-}
-
-#hyprland-workspaces button:hover {
-    color: @foreground;
-    background-color: alpha(@color8, 0.8);
-}
-
-#custom-media {
-    color: @color2;
-}
-
-#clock {
-    font-weight: bold;
-    color: @foreground;
+/* FEATURE: Added hover effect to interactive modules */
+#cpu:hover, #memory:hover, #disk:hover, #backlight:hover, #pulseaudio:hover,
+#network:hover, #bluetooth:hover, #battery:hover, #clock:hover, #custom-launcher:hover {
     background-color: alpha(@background, 0.9);
     border-color: @color8;
 }
 
-#custom-power {
-    color: @color1;
+/* --- Media Player Style --- */
+#custom-media {
+    background-color: @color8;
+    color: @background;
+    padding: 2px 15px;
+    margin: 4px 0;
+    border-radius: 12px;
+}
+#custom-media.custom-spotify { background-color: #1DB954; color: #FFFFFF; }
+
+
+/* FIX: Restored original padding for compact size */
+.modules-right > * { padding-top: 4px; padding-bottom: 4px; }
+#cpu { padding-left: 12px; padding-right: 6px; }
+#memory { padding-left: 6px; padding-right: 6px; }
+#disk { padding-left: 6px; padding-right: 12px; }
+#backlight { padding-left: 12px; padding-right: 6px; }
+#pulseaudio { padding-left: 6px; padding-right: 12px; }
+#network { padding-left: 12px; padding-right: 6px; }
+#bluetooth { padding-left: 6px; padding-right: 12px; }
+#tray, #battery, #clock, #custom-launcher { padding-left: 12px; padding-right: 12px; }
+#custom-power { padding-left: 12px; padding-right: 12px; }
+
+
+/* FIX: Restored original grouping design */
+#cpu, #backlight, #network { margin-right: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-right-width: 0; }
+#memory { margin-left: 0; margin-right: 0; border-radius: 0; border-right-width: 0; }
+#disk, #pulseaudio, #bluetooth { margin-left: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; }
+
+
+/* ================================================= */
+/* ===  IMPROVED WORKSPACE DESIGN (Original Size) === */
+/* ================================================= */
+
+#hyprland-workspaces {
+    background-color: alpha(@background, 0.7);
+    border: 1px solid alpha(@color8, 0.2);
+    border-radius: 12px;
+    padding: 2px 5px;
+    margin: 4px 0;
 }
 
-/* --- Hover Effects --- */
-#pulseaudio:hover,
-#network:hover,
-#backlight:hover,
-#bluetooth:hover,
-#custom-media:hover,
-#cpu:hover,
-#memory:hover,
-#disk:hover {
+#hyprland-workspaces button {
+    padding: 0;
+    margin: 3px 3px;
+    border-radius: 50%; /* Perfect circle */
+    background-color: transparent;
+    color: @foreground;
+    /* FIX: Reverted to original button size */
+    min-width: 24px;
+    min-height: 24px;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+#hyprland-workspaces button:hover {
+    background-color: alpha(@color8, 0.5);
+    border-color: @color8;
+}
+
+/* A non-empty workspace (but not focused) */
+#hyprland-workspaces button.visible {
+    background-color: alpha(@color7, 0.4);
+    border-color: @color7;
+    color: @foreground;
+    opacity: 1.0;
+}
+
+/* An empty, persistent workspace (more visible) */
+#hyprland-workspaces button.persistent {
+    color: @color7;
+    border-color: @color7;
+    border-style: dashed;
+    opacity: 0.7;
+}
+
+/* The ACTIVE (focused) workspace */
+#hyprland-workspaces button.active {
     background-color: @color4;
     color: @background;
     border-color: @color4;
+    font-size: 10px;
+    padding-top: 2px;
+    animation: pop_in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 8px 0px alpha(@color4, 0.8);
 }
 
-#custom-power:hover {
+/* A workspace with an urgent hint */
+#hyprland-workspaces button.urgent {
     background-color: @color1;
     color: @background;
+    border-color: @color1;
+    font-size: 14px;
+    animation: urgent-glow 1.5s ease-in-out infinite alternate;
 }
 
-/* --- Module States --- */
+@keyframes pop_in {
+    from { box-shadow: 0 0 0 0 alpha(@color4, 0.2); }
+    to { box-shadow: 0 0 8px 0px alpha(@color4, 0.8); }
+}
+
+@keyframes urgent-glow {
+    from { box-shadow: 0 0 2px 0px alpha(@color1, 0.8); }
+    to { box-shadow: 0 0 8px 2px alpha(@color1, 1); }
+}
+
+/* =============================================== */
+/* ===       Other Modules & States            === */
+/* =============================================== */
+
+#clock { font-weight: bold; }
+
+#custom-power { color: @color1; }
+#custom-power:hover { background-color: @color1; color: @background; }
+
+#battery.warning:not(.charging) { color: @color3; }
 #battery.critical:not(.charging) {
     color: @color1;
     border-color: @color1;
-    animation: glow 1.5s ease-in-out infinite alternate;
+    animation: blink 1.2s ease-in-out infinite alternate;
 }
 
-@keyframes glow {
-    from {
-        box-shadow: 0 0 2px alpha(@color1, 0.6);
-    }
-    to {
-        box-shadow: 0 0 8px alpha(@color1, 1);
-    }
+@keyframes blink {
+    to { background-color: alpha(@color1, 0.5); }
 }
