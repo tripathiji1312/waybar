@@ -10,220 +10,112 @@
 @define-color red @nord11; @define-color yellow @nord13; @define-color green @nord14; @define-color blue @nord10;
 @define-color cyan @nord8; @define-color purple @nord15; @define-color orange @nord12; @define-color teal @nord7;
 
+@import url("/home/tripathiji/.cache/wal/colors-waybar.css");
+
 * {
-    font-family: "FiraCode Nerd Font", "JetBrainsMono Nerd Font", sans-serif;
-    font-weight: bold; font-size: 13px; border: none; border-radius: 9px; 
-}
-
-window#waybar { 
-    background-color: rgba(46, 52, 64, 0.85); /* Nord0 with transparency */
-    color: @text; 
-}
-
-/* Base Module Styles */
-#workspaces, #clock, #sound, #network, #bluetooth, #hardware, #privacy, #cpu, #custom-media, #custom-power, #battery, #tray {
-    background: transparent; 
-    border: 0px solid @surface1; 
-    padding: 4px 10px; 
-    margin: 2px 0;
-}
-
-#tray {
-    background: grey; 
-    padding: 4px 15px; 
-    margin: 2px 0;
-}
-
-#memory, #disk {
-    background: transparent; 
-    border: 0px solid @surface1; 
-    padding: 4px 10px; 
-    margin: 2px 0;
-}
-
-#disk {
-    border-right: 1px solid @surface1;
-    border-radius: 0px;
-}
-
-#pulseaudio, #backlight {
-    background: transparent; 
-    border: 0px solid @surface1; 
-    padding: 4px 10px; 
-    margin: 2px 0;
-}
-
-/* Slider Styles */
-#backlight-slider slider, #pulseaudio-slider slider {
-    min-height: 0px;
-    min-width: 0px;
-    opacity: 0;
-    background-image: none;
     border: none;
-    box-shadow: none;
-}
-
-#backlight-slider trough, #pulseaudio-slider trough {
-    min-height: 10px;
-    min-width: 80px;
-    border-radius: 5px;
-    background-color: @nord1;
-}
-
-#backlight-slider highlight {
-    min-width: 10px;
-    border-radius: 5px;
-    background-color: @nord13; /* Nord yellow */
-}
-
-#pulseaudio-slider {
-    border-right: 1px solid @surface1;
-    border-radius: 0px;
-}
-
-#pulseaudio-slider highlight {
-    min-width: 10px;
-    border-radius: 5px;
-    background-color: @nord14; /* Nord green */
-}
-
-/* Custom Media */
-#custom-media {
-    background-color: @nord3;
-    color: @text;
-    min-width: 100px;
-    border-radius: 2px;
-    padding: 2px 4px;
-    margin: 0 0px;
-    margin-right: 2px;
-}
-
-#custom-media.custom-spotify {
-    background-color: @nord14; /* Nord green */
-    color: @nord0;
-}
-
-#custom-media.custom-vlc {
-    background-color: @nord12; /* Nord orange */
-    color: @nord0;
-}
-
-/* Workspace Styling - Your fixed Nord workspace styles */
-#workspaces { 
-    background: transparent; /* Nord0 with transparency */
-    padding: 0 4px; 
     border-radius: 12px;
+    font-family: "JetBrainsMono Nerd Font", FontAwesome, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+/* --- General Module Styling --- */
+#custom-launcher,
+#hyprland-workspaces,
+#custom-media,
+#clock,
+#cpu,
+#memory,
+#disk,
+#backlight,
+#pulseaudio,
+#network,
+#bluetooth,
+#battery,
+#tray,
+#custom-power {
+    background-color: alpha(@background, 0.7);
+    color: @foreground;
+    padding: 4px 12px;
     margin: 4px 0;
+    border: 1px solid alpha(@color8, 0.2);
 }
 
-#workspaces button { 
-    padding: 2px 12px; 
-    background-color: transparent; 
-    transition: all 0.3s ease; 
-    color: @nord3; /* Nord3 - muted for inactive */
+/* --- Specific Module Styling --- */
+#hyprland-workspaces {
+    background-color: alpha(@background, 0.8);
+    padding: 2px 8px;
+}
+
+#hyprland-workspaces button {
+    color: @color3;
+    padding: 2px 6px;
     border-radius: 8px;
-    margin: 2px 1px;
-    min-width: 20px;
+    transition: all 0.3s ease;
 }
 
-#workspaces button.empty { 
-    color: @nord1; /* Nord1 - very subtle for empty */
+#hyprland-workspaces button.active {
+    color: @color4;
+    background-color: alpha(@color8, 0.5);
 }
 
-#workspaces button:not(.empty) { 
-    color: @nord4; /* Nord4 - active text */
-    /* backgro Nord1 subtle bg */
+#hyprland-workspaces button:hover {
+    color: @foreground;
+    background-color: alpha(@color8, 0.8);
 }
 
-#workspaces button.active { 
-    color: @nord8; /* Nord8 - cyan accent */
-    background-color: rgba(136, 192, 208, 0.15); /* Nord8 with low opacity */
-    box-shadow: inset 0 0 0 0px rgba(136, 192, 208, 0.3);
+#custom-media {
+    color: @color2;
 }
 
-#workspaces button.urgent { 
-    color: @nord11; /* Nord11 - red */
-    background-color: rgba(191, 97, 106, 0.15);
-    animation: urgent-blink 1s ease-in-out infinite alternate;
+#clock {
+    font-weight: bold;
+    color: @foreground;
+    background-color: alpha(@background, 0.9);
+    border-color: @color8;
 }
 
-@keyframes urgent-blink {
-    to { background-color: rgba(191, 97, 106, 0.3); }
+#custom-power {
+    color: @color1;
 }
 
-/* Player Module Styling - Updated for Nord */
-@keyframes gradient_slide { 
-    0% { background-position: 0% 50%; } 
-    50% { background-position: 100% 50%; } 
-    100% { background-position: 0% 50%; } 
+/* --- Hover Effects --- */
+#pulseaudio:hover,
+#network:hover,
+#backlight:hover,
+#bluetooth:hover,
+#custom-media:hover,
+#cpu:hover,
+#memory:hover,
+#disk:hover {
+    background-color: @color4;
+    color: @background;
+    border-color: @color4;
 }
 
-#custom-player { 
-    color: @nord10; /* Nord blue */
+#custom-power:hover {
+    background-color: @color1;
+    color: @background;
 }
 
-#custom-player.Playing { 
-    color: @nord0; 
-    background: linear-gradient(90deg, @nord12, @nord15); /* Orange to purple gradient */
-    background-size: 400% 400%; 
-    animation: gradient_slide 3s linear infinite; 
+/* --- Module States --- */
+#battery.critical:not(.charging) {
+    color: @color1;
+    border-color: @color1;
+    animation: glow 1.5s ease-in-out infinite alternate;
 }
 
-#custom-player.Paused, #custom-player.inactive, #custom-player.Stopped { 
-    color: @nord3; 
-}
-
-/* Battery Styling - Updated for Nord */
-#battery { 
-    color: @text; 
-}
-
-#battery.charging, #battery.plugged { 
-    color: @nord0; 
-    background-color: @nord14; /* Nord green */
-}
-
-#battery.warning { 
-    color: @nord13; /* Nord yellow */
-}
-
-#battery.critical:not(.charging) { 
-    color: @nord0; 
-    background-color: @nord11; /* Nord red */
-    animation-name: blink; 
-    animation-duration: 0.5s; 
-    animation-timing-function: linear; 
-    animation-iteration-count: infinite; 
-    animation-direction: alternate; 
-}
-
-@keyframes blink { 
-    to { 
-        background-color: @nord0; 
-        color: @nord11; 
-    } 
-}
-
-/* Individual Module Styles - All Nord colors */
-#clock { color: @nord13; } /* Nord yellow */
-#disk { color: @text; }
-#memory { color: @text; }
-#cpu { color: @text; }
-#network { color: @nord8; } /* Nord cyan */
-#network.disconnected { color: @nord13; } /* Nord yellow */
-#bluetooth { color: @nord8; } /* Nord cyan */
-#pulseaudio { color: @text; }
-#pulseaudio.muted { color: @nord11; } /* Nord red */
-#backlight { color: @text; }
-#custom-power { color: @nord11; } /* Nord red */
-
-/* Tooltip */
-tooltip { 
-    background: @nord0; 
-    border: 1px solid @nord8; 
-    border-radius: 12px; 
-}
-
-tooltip label { 
-    color: @text; 
+@keyframes glow {
+    from {
+        box-shadow: 0 0 2px alpha(@color1, 0.6);
+    }
+    to {
+        box-shadow: 0 0 8px alpha(@color1, 1);
+    }
 }

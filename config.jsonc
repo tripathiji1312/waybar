@@ -1,147 +1,53 @@
 {
-    "layer": "top", "position": "top", "height": 35, "margin-top": 2, "margin-left": 2, "margin-right": 2, "spacing": 4, "margin-bottom":0,
-    "modules-left": ["custom/media", "hyprland/workspaces"], 
-    // ADD "battery" to this list
-    "modules-right": ["tray","privacy","group/hardware", "group/sound", "network", "bluetooth", "clock","battery", "custom/power"],
+    "layer": "top",
+    "position": "top",
+    "height": 34,
+    "spacing": 8,
+    "margin-top": 6,
+    "margin-left": 6,
+    "margin-right": 6,
 
-    // This is your current, corrected workspace config. It stays the same.
+    "modules-left": ["custom/launcher", "hyprland/workspaces", "custom/media"],
+    "modules-center": ["clock"],
+    "modules-right": ["cpu", "memory", "disk", "backlight", "pulseaudio", "network", "bluetooth", "battery", "tray", "custom/power"],
+
+    "custom/launcher": {
+        "format": "",
+        "on-click": "wofi --show drun"
+    },
     "hyprland/workspaces": {
-      "format": "{icon}",
-      "format-icons": { "active": "", "default": "" },
-      "persistent-workspaces": { "1": [], "2": [], "3": [], "4": [], "5": [] },
-      "on-click": "activate"
-  },
-
-    // --- ADD THIS NEW BATTERY MODULE BLOCK ---
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{icon} {capacity}%",
-        "format-charging": "  {capacity}%",
-        "format-plugged": " {capacity}%",
-        "format-alt": "{icon} {time}",
-        "format-icons": ["", "", "", "", ""]
-    },
-    
-    // -----------------------------------------
-
-    "custom/player": {
-        "format": "{icon} {text}", "format-icons": { "Playing": "▶", "Paused": "⏸", "Stopped": "⏹", "inactive": "♪" },
-        "return-type": "json", "max-length": 35, "interval": 2, "exec": "~/.config/waybar/scripts/player.sh",
-        "on-click": "playerctl play-pause", "on-scroll-up": "playerctl next", "on-scroll-down": "playerctl previous", "tooltip": true
-    },
-    "pulseaudio/slider": {
-        "min": 0,
-        "max": 100,
-        "orientation": "horizontal"
-    },
-    "backlight": {
-        "device": "amdgpu_bl1", "format": "{icon} {percent}%", "format-icons": ["󰃟"],
-        "on-scroll-up": "brightnessctl set 5%+", "on-scroll-down": "brightnessctl set 5%-"
-    },
-    "backlight/slider": {
-        "min": 0,
-        "max": 100,
-        "orientation": "horizontal",
-        "device": "amdgpu_bl1"
-    },
-    "disk": { "interval": 30, "format": " {percentage_used}%", "path": "/" },
-    "memory": { "interval": 2, "format": "󰍛 {}%", "tooltip": true },
-    "cpu": { "interval": 2, "format": " {usage}%", "tooltip": true },
-    "network": {
-        "format-wifi": "  {essid}", "format-ethernet": "{ifname} ", "format-disconnected": "󰤮",
-        "on-click": "nm-connection-editor", "interval": 5
-    },
-        // --- UPDATED BLUETOOTH MODULE WITH FULL ICONS ---
-        "bluetooth": {
-            // This is the default format, which will be overridden by the specific states below.
-            "format": " {device_alias}", 
-            "format-on": "",                  // Icon when Bluetooth is on, but no devices connected
-            "format-connected": " {device_alias}", // Icon when a device is connected ( is a "linked" icon)
-            "format-disabled": "󰂲",           // Icon when the service is off (bluetooth.service is not running)
-            "format-off": "󰂲",                 // Icon for when the adapter is turned off (e.g., via rfkill)
-            "on-click": "blueman-manager",
-            "tooltip-format": "{controller_alias}: {status}"
-        },
-        // ------------------------------------------------
-    "pulseaudio": {
-        "format": "{icon} {volume}%", "format-muted": "󰖁 {volume}%", "on-click": "pavucontrol",
-        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle", "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +2%",
-        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%", "format-icons": { "default": ["", "", ""] }
-    },
-    "clock": { "format": "{:%I:%M %p}", "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>" },
-    "custom/power": { "format": "", "on-click": "wlogout", "tooltip": true },
-    "tray": { "icon-size": 18, "spacing": 10 },
-    "privacy": {
-        "icon-spacing": 4,
-        "icon-size": 18,
-        "transition-duration": 250,
-        "modules": [
-            {
-                "type": "screenshare",
-                "tooltip": true,
-                "tooltip-icon-size": 24
-            },
-            {
-                "type": "audio-out",
-                "tooltip": true,
-                "tooltip-icon-size": 24
-            },
-            {
-                "type": "audio-in",
-                "tooltip": true,
-                "tooltip-icon-size": 24
-            }
-        ],
-        "ignore-monitor": true,
-        "ignore": [
-            {
-                "type": "audio-in",
-                "name": "cava"
-            },
-            {
-                "type": "screenshare",
-                "name": "obs"
-            }
-	]
-    },
-    "group/hardware": {
-		"orientation": "horizontal",
-		"modules": [
-			"disk",
-			"memory"
-		]   
-	},
-    "custom/media": {
-        "format": "{icon} {text}",
-        // ADD THIS LINE: This is the format to use when no music is playing.
-        "format-inactive": "󰝚",
-
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null"
-    },
-    "group/sound": {
-		"orientation": "horizontal",
-		"modules": [
-			"pulseaudio", 
-            // "pulseaudio/slider",
-            "backlight"
-            // "backlight/slider"
-		]
-	},
-    "idle_inhibitor": {
         "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-}
+        "format-icons": { "active": "", "default": "" }
+    },
+    "custom/media": {
+        "format": "{} ",
+        "return-type": "json",
+        "max-length": 25,
+        "exec": "while true; do $HOME/.config/waybar/mediaplayer.py 2> /dev/null; sleep 1; done",
+        "on-click": "playerctl play-pause"
+    },
+    "clock": {
+        "format": "{:%I:%M %p}",
+        "tooltip-format": "<big>{:%A, %B %d}</big>"
+    },
+    "cpu": { "format": " {}%", "interval": 2 },
+    "memory": { "format": "󰍛 {}%", "interval": 2 },
+    "disk": { "format": " {}%", "interval": 30 },
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": ["󰃟"],
+        "on-scroll-up": "brightnessctl set 5%+",
+        "on-scroll-down": "brightnessctl set 5%-"
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰖁",
+        "format-icons": { "default": ["", "", ""] },
+        "on-click": "pavucontrol"
+    },
+    "network": { "format-wifi": "", "format-ethernet": "", "format-disconnected": "󰤮", "tooltip-format": "{essid}" },
+    "bluetooth": { "format": "", "format-connected": " {device_alias}", "format-disabled": "󰂲", "tooltip-format": "{device_alias}" },
+    "battery": { "format": "{icon} {capacity}%", "format-charging": "", "format-icons": ["", "", "", "", ""] },
+    "tray": { "icon-size": 16, "spacing": 10 },
+    "custom/power": { "format": "", "on-click": "wlogout" }
 }
