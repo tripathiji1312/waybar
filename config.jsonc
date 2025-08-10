@@ -18,12 +18,26 @@
         "tooltip": false
     },
 
+    // Minimal workspace configuration
     "hyprland/workspaces": {
-      "format": "{icon}",
-      "format-icons": { "active": "", "default": "" },
-      "persistent-workspaces": { "1": [], "2": [], "3": [], "4": [], "5": [] },
-      "on-click": "activate"
-  },
+        "format": "{icon}",
+        "format-icons": {
+            "active": "●",
+            "default": "○",
+            "urgent": "!"
+        },
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": []
+        },
+        "on-click": "activate",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "smooth-scrolling-threshold": 1
+    },
 
     "custom/media": {
         "format": "{}",

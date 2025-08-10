@@ -61,97 +61,275 @@ window#waybar {
 #cpu, #backlight, #network { margin-right: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-right-width: 0; }
 #memory { margin-left: 0; margin-right: 0; border-radius: 0; border-right-width: 0; }
 #disk, #pulseaudio, #bluetooth { margin-left: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; }
+/* ============================================= */
+/*                WORKSPACE STYLES               */
+/* ============================================= */
 
-
-/* ================================================= */
-/* ===  IMPROVED WORKSPACE DESIGN (Original Size) === */
-/* ================================================= */
-
-/* ================================================= */
-/* ===  IMPROVED WORKSPACE DESIGN (Original Size) === */
-/* ================================================= */
-
-/* In your style.css */
-
-/* ================================================= */
-/* ===         SAFE MODE WORKSPACE STYLE         === */
-/* ================================================= */
-
+/* Main workspace container */
 #workspaces {
-    background-color: @background; /* Solid Black Background */
-    padding: 2px;
-    margin: 4px 0;
+    background-color: alpha(@background, 0.8);
+    padding: 4px 6px;
+    margin: 6px 8px;
+    border-radius: 16px;
+    border: 1px solid alpha(@color8, 0.15);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Subtle hover effect on container */
+#workspaces:hover {
+    background-color: alpha(@background, 0.95);
+    border: 1px solid alpha(@color8, 0.25);
+}
+
+/* Base button style - clean and minimal */
+#workspaces button {
+    background-color: transparent;
+    color: alpha(@color7, 1);
+    padding: 0px 2px;
+    margin: 0px 4px;
+    border: none;
     border-radius: 12px;
-    /* border: 2px solid #5e81ac; A solid, visible border */
+    font-size: 12px;
+    font-weight: 400;
+    min-width: 20px;
+    min-height: 20px;
+    transition: color 0.25s ease, background-color 0.25s ease, padding 0.25s ease;
+}
+
+/* Hover state - subtle indication */
+#workspaces button:hover {
+    color: alpha(@foreground, 0.8);
+    background-color: alpha(@color4, 0.1);
+    padding: 0px 4px;
+}
+
+/* Active workspace - prominent but clean */
+#workspaces button.active {
+    color: @color4;
+    background-color: alpha(@color4, 0.15);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0px 4px;
+    animation: pulse 2s ease infinite;
+}
+
+/* Active workspace hover - slightly brighter */
+#workspaces button.active:hover {
+    color: @color4;
+    background-color: alpha(@color4, 0.25);
+    padding: 0px 6px;
+}
+
+/* Non-empty workspace (has windows) */
+#workspaces button:not(.empty):not(.active) {
+    color: alpha(@foreground, 0.6);
+    font-size: 12px;
+}
+
+/* Empty workspace - very subtle */
+#workspaces button.empty {
+    color: alpha(@color8, 0.3);
+    font-size: 10px;
+}
+
+/* Empty workspace hover - visible but still subtle */
+#workspaces button.empty:hover {
+    color: alpha(@color8, 0.6);
+    background-color: alpha(@color8, 0.05);
+}
+
+/* Urgent workspace - attention-grabbing but not overwhelming */
+#workspaces button.urgent {
+    color: @color1;
+    background-color: alpha(@color1, 0.2);
+    font-weight: 700;
+    animation: urgent-pulse 1s ease infinite;
+}
+
+/* Urgent workspace hover */
+#workspaces button.urgent:hover {
+    background-color: alpha(@color1, 0.3);
+}
+
+/* ============================================= */
+/*                  ANIMATIONS                   */
+/* ============================================= */
+
+/* Gentle pulse for active workspace - using opacity only */
+@keyframes pulse {
+    0% {
+        opacity: 1.0;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1.0;
+    }
+}
+
+/* Urgent notification animation - using color and padding */
+@keyframes urgent-pulse {
+    0% {
+        background-color: alpha(@color1, 0.2);
+        padding: 0px 4px;
+    }
+    50% {
+        background-color: alpha(@color1, 0.35);
+        padding: 0px 6px;
+    }
+    100% {
+        background-color: alpha(@color1, 0.2);
+        padding: 0px 4px;
+    }
+}
+
+/* ============================================= */
+/*            ALTERNATIVE STYLE 1                */
+/*         Line indicators (GTK-safe)           */
+/* ============================================= */
+
+/* Uncomment this section for line-style indicators
+#workspaces {
+    background-color: transparent;
+    padding: 0px;
+    margin: 8px;
+    border: none;
 }
 
 #workspaces button {
-    /* Style for ALL buttons */
-    background-color: transparent; /* No background color on the button itself */
-    color: @color4;               /* White text */
-    padding: 0px 8px;
-    margin: 2px 3px;
-    border-radius: 4px;
-    font-size: 14px;
-    min-height: 24px;
+    background-color: alpha(@color8, 0.2);
+    color: transparent;
+    padding: 0px;
+    margin: 0px 3px;
+    border: none;
+    border-radius: 2px;
+    min-width: 24px;
+    min-height: 3px;
+    transition: background-color 0.3s ease, min-width 0.3s ease;
 }
 
+#workspaces button.active {
+    background-color: @color4;
+    min-width: 32px;
+}
+
+#workspaces button:not(.empty):not(.active) {
+    background-color: alpha(@foreground, 0.3);
+}
+
+#workspaces button.empty {
+    background-color: alpha(@color8, 0.1);
+}
 
 #workspaces button:hover {
-    background-color: rgba(136, 192, 208, 0.3);
+    background-color: alpha(@color4, 0.5);
+}
+*/
+
+/* ============================================= */
+/*            ALTERNATIVE STYLE 2                */
+/*      Numbers with underline (GTK-safe)       */
+/* ============================================= */
+
+/* Uncomment this section for numbered workspaces with underline
+#workspaces {
+    background-color: alpha(@background, 0.6);
+    padding: 2px 4px;
+    margin: 6px 8px;
+    border-radius: 8px;
 }
 
-/* A non-empty workspace (but not focused) */
-#workspaces button:not(.empty) {
-    background-color: @background;
-    /* border-color: @color9; */
-    color: @foreground;
-    opacity: 1.0;
+#workspaces button {
+    background-color: transparent;
+    color: alpha(@foreground, 0.5);
+    padding: 4px 8px;
+    margin: 0px 2px;
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: monospace;
+    transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
 }
 
-/* An empty, persistent workspace (more visible) */
-/* #workspaces button.persistent {
-    color: @color7;
-    border-color: @color5;
-    border-style: dashed;
-    opacity: 0.8;
-} */
-
-/* The ACTIVE (focused) workspace */
 #workspaces button.active {
-    /* background-color: @color4; */
     color: @foreground;
-    /* border-color: @color12; */
-    font-size: 10px;
-    padding-top: 2px;
-    animation: pop_in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    /* box-shadow: 0 0 8px 0px @color4; */
+    border-bottom: 2px solid @color4;
+    background-color: alpha(@color4, 0.1);
 }
+
+#workspaces button:hover {
+    color: @foreground;
+    background-color: alpha(@color4, 0.05);
+    border-bottom: 2px solid alpha(@color4, 0.5);
+}
+
 #workspaces button.empty {
-    background-color: @background; /* No background color for empty workspaces */
-    color: @color6; 
-    /* border: 1px solid @color8;     Subtle border to indicate emptiness */
-    opacity: 0.5;                  /* Slightly faded appearance */
+    color: alpha(@color8, 0.4);
 }
-/* A workspace with an urgent hint */
+
+#workspaces button.urgent {
+    color: @color1;
+    border-bottom: 2px solid @color1;
+    background-color: alpha(@color1, 0.1);
+}
+*/
+
+/* ============================================= */
+/*            ALTERNATIVE STYLE 3                */
+/*        Pills style (GTK-safe, minimal)       */
+/* ============================================= */
+
+/* Uncomment this section for pill-style workspaces
+#workspaces {
+    background-color: alpha(@background, 0.4);
+    padding: 2px;
+    margin: 6px 8px;
+    border-radius: 20px;
+    border: 1px solid alpha(@color8, 0.1);
+}
+
+#workspaces button {
+    background-color: transparent;
+    color: alpha(@foreground, 0.4);
+    padding: 2px 10px;
+    margin: 2px;
+    border-radius: 16px;
+    border: none;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+#workspaces button.active {
+    background-color: @color4;
+    color: @background;
+    padding: 2px 14px;
+}
+
+#workspaces button:hover:not(.active) {
+    background-color: alpha(@color4, 0.2);
+    color: @foreground;
+}
+
+#workspaces button.empty {
+    padding: 2px 6px;
+    opacity: 0.3;
+}
+
 #workspaces button.urgent {
     background-color: @color1;
     color: @background;
-    border-color: @color1;
-    font-size: 14px;
-    animation: urgent-glow 1.5s ease-in-out infinite alternate;
+    animation: urgent-blink 0.5s ease infinite;
 }
 
-@keyframes pop_in {
-    from { box-shadow: 0 0 0 0 alpha(@color4, 0.2); }
-    to { box-shadow: 0 0 8px 0px alpha(@color4, 0.8); }
+@keyframes urgent-blink {
+    0%, 100% { opacity: 1.0; }
+    50% { opacity: 0.6; }
 }
-
-@keyframes urgent-glow {
-    from { box-shadow: 0 0 2px 0px alpha(@color1, 0.8); }
-    to { box-shadow: 0 0 8px 2px alpha(@color1, 1); }
-}
-
+*/
 /* =============================================== */
 /* ===       Other Modules & States            === */
 /* =============================================== */
@@ -161,9 +339,13 @@ window#waybar {
 #custom-power { color: @color1; }
 #custom-power:hover { background-color: @color1; color: @background; }
 
-#battery.warning:not(.charging) { color: @color3; }
+#battery.warning:not(.charging) {
+    color: red;
+    /* background-color: orange; */
+ }
 #battery.critical:not(.charging) {
-    color: @color1;
+    color: red;
+    background-color: yellow;
     border-color: @color1;
     animation: blink 1.2s ease-in-out infinite alternate;
 }
