@@ -4,11 +4,11 @@
     // FIX: Reverted to original height and spacing
     "height": 36,
     "spacing": 8,
-    "margin-top": 3,
+    "margin-top": 2,
     "margin-left": 6,
     "margin-right": 6,
 
-    "modules-left": ["custom/launcher", "hyprland/workspaces", "custom/media"],
+    "modules-left": ["custom/launcher", "hyprland/workspaces", "mpris"],
     "modules-center": ["clock"],
     "modules-right": ["cpu", "memory", "disk", "backlight", "pulseaudio", "network", "bluetooth", "tray", "battery", "custom/power"],
 
@@ -17,6 +17,8 @@
         "on-click": "wofi --show drun",
         "tooltip": false
     },
+    
+    
 
     // Minimal workspace configuration
     "hyprland/workspaces": {
@@ -39,13 +41,18 @@
         "smooth-scrolling-threshold": 1
     },
 
-    "custom/media": {
-        "format": "{}",
-        "return-type": "json",
-        "max-length": 35,
-        "exec": "$HOME/.config/waybar/mediaplayer.py",
-        "on-click": "playerctl play-pause",
-        "escape": true
+    "mpris": {
+        "format": "{player_icon} {dynamic}",
+        "format-paused": "{status_icon} <i>{dynamic}</i>",
+        "player-icons": {
+            "default": "▶",
+            "mpv": "🎵"
+        },
+        "status-icons": {
+            "paused": "⏸"
+        },
+        "dynamic-len": 35,
+        "title-len": 20
     },
 
     "clock": {
