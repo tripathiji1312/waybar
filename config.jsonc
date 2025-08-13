@@ -20,12 +20,12 @@
 
     // Minimal workspace configuration
     "hyprland/workspaces": {
-        "format": "{icon}",
-        "format-icons": {
-            "active": "●",
-            "default": "○",
-            "urgent": "!"
-        },
+        "format": "{name}",
+        // "format-icons": {
+        //     "active": "●",
+        //     "default": "○",
+        //     "urgent": "!"
+        // },
         "persistent-workspaces": {
             "1": [],
             "2": [],
