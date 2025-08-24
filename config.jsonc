@@ -2,13 +2,13 @@
     "layer": "top",
     "position": "top",
     // FIX: Reverted to original height and spacing
-    "height": 36,
+    "height": 31,
     "spacing": 8,
     "margin-top": 2,
     "margin-left": 6,
     "margin-right": 6,
 
-    "modules-left": ["custom/launcher", "hyprland/workspaces", "mpris"],
+    "modules-left": ["hyprland/workspaces", "mpris", "custom/updates"],
     "modules-center": ["clock"],
     "modules-right": ["cpu", "memory", "disk", "backlight", "pulseaudio", "network", "bluetooth", "tray", "battery", "custom/power"],
 
@@ -45,11 +45,11 @@
         "format": "{player_icon} {dynamic}",
         "format-paused": "{status_icon} <i>{dynamic}</i>",
         "player-icons": {
-            "default": "▶",
+            "default": "⏸",
             "mpv": "🎵"
         },
         "status-icons": {
-            "paused": "⏸"
+            "paused": "▶"
         },
         "dynamic-len": 35,
         "title-len": 20
@@ -83,20 +83,28 @@
     },
 
     "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-muted": "󰖁 Muted",
-        "format-icons": { "default": ["", "", ""] },
-        "on-click": "pavucontrol",
-        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
-        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%"
-    },
+    "format": "{icon} {volume}%",
+    "format-alt": "{icon}", // Show only the icon on alternate click
+    "format-muted": "󰖁 Muted",
+    "format-icons": { "default": ["", "", ""] },
+    "on-click": "pavucontrol",
+    "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle", // Mute on right click
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+},
 
     "network": {
-        "format-wifi": " {essid}",
+        "format-wifi": "  {essid}",
         "format-ethernet": "",
-        "format-disconnected": "󰤮 Disconnected",
+        "format-disconnected": "󰤮  Disconnected",
         "tooltip-format-wifi": "{ipaddr} | {signalStrength}%",
         "on-click": "nm-connection-editor"
+    },
+        "custom/updates": {
+        "format": "{}",
+        "interval": 900, // Check every 15 minutes
+        "exec": "~/.config/hypr/scripts/check_updates.sh",
+        "on-click": "kitty -e sudo pacman -Syu"
     },
 
     "bluetooth": {
